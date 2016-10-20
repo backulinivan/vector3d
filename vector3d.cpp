@@ -19,9 +19,13 @@ vector3d::vector3d(double _x, double _y, double _z) {
     z = _z;
 }
 
-int vector3d::get_x() const {return x;}
-int vector3d::get_y() const {return y;}
-int vector3d::get_z() const {return z;}
+bool vector3d::operator==(const vector3d &other) const {
+    return (x == other.x) && (y == other.y) && (z == other.z);
+}
+
+bool vector3d::operator!=(const vector3d &other) const {
+    return (x != other.x) | (y != other.y) | (z != other.z);
+}
 
 vector3d vector3d::operator+(const vector3d &other) const {
     return vector3d(x + other.x, y + other.y, z + other.z);
@@ -35,12 +39,12 @@ double vector3d::operator*(const vector3d &other) const {
     return x*other.x + y*other.y + z*other.z;
 }
 
-vector3d operator*(double num, const vector3d &vector){
-    return vector3d(num*vector.x, num*vector.y, num*vector.z);
+vector3d operator*(double multiplier, const vector3d &vector){
+    return vector3d(multiplier*vector.x, multiplier*vector.y, multiplier*vector.z);
 }
 
-vector3d operator*(const vector3d &vector, double num){
-    return num*vector;
+vector3d operator*(const vector3d &vector, double multiplier){
+    return multiplier*vector;
 }
 
 vector3d operator-(const vector3d &vector){
@@ -51,8 +55,16 @@ double vector3d::length() const {
     return sqrt(pow(x, 2) + pow(y, 2) + pow(z, 2));
 }
 
-vector3d vector3d::normalize() const {
-    return vector3d(x/this->length(), y/this->length(), z/this->length());
+void vector3d::normalize() {
+    double length = this->length();
+    x = x/length;
+    y = y/length;
+    z = z/length;
+}
+
+std::ostream& operator<<(std::ostream& out, const vector3d &output){
+    out << "{" << output.x << ", " << output.y << ", " << output.z << "}";
+    return out;
 }
 
 vector3d vector3d::operator^(const vector3d &other) const {

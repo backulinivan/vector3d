@@ -13,20 +13,19 @@ public:
 
     vector3d();
     vector3d(double _x, double _y, double _z);
-    int get_x() const;
-    int get_y() const;
-    int get_z() const;
     vector3d operator+(const vector3d &other) const;
     vector3d operator-(const vector3d &other) const;
     double operator*(const vector3d &other) const;
     vector3d operator^(const vector3d &other) const;
     double length() const;
-    vector3d normalize() const;
+    void normalize();
     bool operator==(const vector3d &other) const;
+    bool operator!=(const vector3d &other) const;
 };
 
-vector3d operator*(double num, const vector3d &vector);
-vector3d operator*(const vector3d &vector, double num);
+std::ostream& operator<<(std::ostream& out, const vector3d &output);
+vector3d operator*(double multiplier, const vector3d &vector);
+vector3d operator*(const vector3d &vector, double multiplier);
 vector3d operator-(const vector3d &vector);
 
 #endif
